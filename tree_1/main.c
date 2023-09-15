@@ -21,8 +21,14 @@ TreeNode n10 = { 7, &n9, &n8 };
 TreeNode n11 = { 1, &n5, &n10 };
 TreeNode* root = &n11;
 
-int array[11] = {1,2,3,4,5,6,7,8,9,10,11};
-
+//링크 방식 전위 순회
+linked_preorder(TreeNode* root) {
+	if (root) {
+		printf("%d ", root->data); 	// 노드 방문
+		linked_preorder(root->left);	// 왼쪽서브트리 순회
+		linked_preorder(root->right);	// 오른쪽서브트리 순회
+	}
+}
 
 //링크 방식 중위 순회
 linked_inorder(TreeNode* root) {
@@ -32,14 +38,7 @@ linked_inorder(TreeNode* root) {
 		linked_inorder(root->right);	// 오른쪽서브트리 순회
 	}
 }
-//링크 방식 전위 순회
-linked_preorder(TreeNode* root) {
-	if (root) {
-		printf("%d ", root->data); 	// 노드 방문
-		linked_preorder(root->left);	// 왼쪽서브트리 순회
-		linked_preorder(root->right);	// 오른쪽서브트리 순회
-	}
-}
+
 //링크 방식 후위 순회
 linked_postorder(TreeNode* root) {
 	if (root) {
@@ -49,18 +48,35 @@ linked_postorder(TreeNode* root) {
 	}
 }
 
-//배열 방식 중위 순회
-array_inorder() {
-	
-}
-//배열 방식 전위 순회
-array_preorder() {
+int array[16] = { 0,1,2,7,3,6,8,9,4,5,0,0,0,0,10,11 };
 
+// 배열 방식 전위 순회
+void array_preorder(int i) {
+	if (i && array[i] != 0) {  // 노드가 0이 아닌 경우에만 처리
+		printf("%d ", array[i]);  // 노드 방문
+		array_preorder(2 * i);  // 왼쪽 서브트리 순회
+		array_preorder(2 * i + 1);  // 오른쪽 서브트리 순회
+	}
 }
-//배열 방식 후위 순회
-array_postorder() {
-	
+
+// 배열 방식 중위 순회
+void array_inorder(int i) {
+	if (i && array[i] != 0) {  // 노드가 0이 아닌 경우에만 처리
+		array_inorder(2 * i);  // 왼쪽 서브트리 순회
+		printf("%d ", array[i]);  // 노드 방문
+		array_inorder(2 * i + 1);  // 오른쪽 서브트리 순회
+	}
 }
+
+// 배열 방식 후위 순회
+void array_postorder(int i) {
+	if (i && array[i] != 0) {  // 노드가 0이 아닌 경우에만 처리
+		array_postorder(2 * i);  // 왼쪽 서브트리 순회
+		array_postorder(2 * i + 1);  // 오른쪽 서브트리 순회
+		printf("%d ", array[i]);  // 노드 방문
+	}
+}
+
 
 void  main()
 {
@@ -80,19 +96,17 @@ void  main()
 
 	printf("[Array Tree]\n");
 
-	printf("1.전위 순회\n");
-	array_preorder();
+	printf("1. 전위 순회\n");
+	array_preorder(1); 
 	printf("\n\n");
 
-	printf("2.중위 순회\n");
-	array_inorder();
+	printf("2. 중위 순회\n");
+	array_inorder(1); 
 	printf("\n\n");
 
-	printf("3.후위 순회\n");
-	array_postorder();
+	printf("3. 후위 순회\n");
+	array_postorder(1); 
 	printf("\n\n");
+
 	return 0;
-
-
-	
 }
